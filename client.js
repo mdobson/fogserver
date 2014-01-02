@@ -1,7 +1,7 @@
 var Fog = require('thefog'),
     Packet = Fog.Packet;
 
-var client = new Fog.Client({'endpoint':'ws://thefog.herokuapp.com/'});
+var client = new Fog.Client({'endpoint':'ws://0.0.0.0:3000'});
 
 client.open(function() {
   console.log('Client opened!');
@@ -9,6 +9,7 @@ client.open(function() {
 
 client.on('ACK', function(data) {
   var clientId = data.clientId;
+  console.log('subscription acknowledged clientId:'+clientId);
   var p = new Packet({'action':'PONG', 'data':{'clientId':clientId}});
   client.send(p);
 });

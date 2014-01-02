@@ -1,16 +1,39 @@
 var Fog = require('thefog'),
+    argo = require('argo'),
+    router = require('argo-url-router'),
+    http = require('http'),
     Packet = Fog.Packet;
 
-var server = new Fog.Server({port: process.env.PORT || 5050});
+var argoserver = argo();
 
-server.on('PONG', function(data) {
+argoserver
+  .use(router)
+  .map('/devices', function(server) {
+    server
+      .post('/ping/{id}', function(handle) {
+        handle('request', function(env, next) {
+          var id = env.route.params.id;
+          var p = new Packet({'action':'PING'});
+          fogserver.send(id, p);
+          next(env);
+        });
+    });
+  });
+
+var app = argoserver.build();
+var server = http.createServer(app.run).listen(process.env.PORT || 3000);
+
+
+var fogserver = new Fog.Server({server:server});
+
+fogserver.on('PONG', function(data) {
   console.log('Just got ponged. Pinging.');
   var clientId = data.clientId;
   var p = new Packet({'action':'PING'});
-  server.send(clientId, p);
+  fogserver.send(clientId, p);
 });
 
-server.on('error', function(data) {
+fogserver.on('error', function(data) {
   console.log('Packet err');
   console.log(data);
 });
