@@ -1,7 +1,7 @@
-var Fog = require('../fogserver.js'),
-    Packet = require('../wspacket.js');
+var Fog = require('thefog'),
+    Packet = Fog.Packet;
 
-var server = new Fog.Server({port: process.env.PORT});
+var server = new Fog.Server({port: process.env.PORT || 5050});
 
 server.on('PONG', function(data) {
   console.log('Just got ponged. Pinging.');

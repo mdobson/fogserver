@@ -1,5 +1,5 @@
-var Fog = require('../fogserver.js'),
-    Packet = require('../wspacket.js');
+var Fog = require('thefog'),
+    Packet = Fog.Packet;
 
 var client = new Fog.Client({'endpoint':'ws://0.0.0.0:5050/'});
 

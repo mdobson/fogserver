@@ -14,6 +14,6 @@
   "author": "",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "thefog": "0.0.1"
+    "thefog": "0.0.3"
   }
 }
