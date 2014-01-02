@@ -1,0 +1,19 @@
+{
+  "name": "fogtest",
+  "version": "0.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": ">=1.2.x"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "thefog": "0.0.1"
+  }
+}
