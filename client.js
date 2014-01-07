@@ -8,14 +8,16 @@ client.open(function() {
 });
 
 client.on('ACK', function(data) {
-  var clientId = data.clientId;
-  console.log('subscription acknowledged clientId:'+clientId);
-  var p = new Packet({'action':'PONG', 'data':{'clientId':clientId}});
+//  var clientId = data.clientId;
+//  console.log('subscription acknowledged clientId:'+clientId);
+  var p = new Packet({'action':'PONG'});
   client.send(p);
 });
 
-client.on('PING', function(data) {
+client.on('PING', function(p) {
   console.log('Just pinged by server.');
+  var p2 = new Packet({'action':'ACK'});
+  client.respondTo(p, p2);
 });
 
 client.on('error', function(data) {

@@ -14,11 +14,19 @@ argoserver
         handle('request', function(env, next) {
           var id = env.route.params.id;
           var p = new Packet({'action':'PING'});
-          fogserver.send(id, p);
+          fogserver.send(id, p, function(err, packet){
+            env.response.body = {"ping":1};
+            next(env);
+          });
+        });
+      })
+      .get('/', function(handle) {
+        handle('request', function(env, next) {
+          env.response.body = fogserver.getClients();
           next(env);
         });
-    });
-  });
+      });
+   });
 
 var app = argoserver.build();
 var server = http.createServer(app.run).listen(process.env.PORT || 3000);
