@@ -37,3 +37,20 @@ fogserver.on('error', function(data) {
   console.log('Packet err');
   console.log(data);
 });
+
+
+fogserver.on('powered',function(data){
+  console.log("Event: (powered on) from internal ip of " + data.host);
+});
+
+fogserver.on('cookend',function(data){
+  console.log("Event: (cook end) from internal ip of " + data.host);
+});
+
+fogserver.on('lidopened',function(data){
+  console.log("Event: (lid closed) from internal ip of " + data.host);
+});
+
+fogserver.on('lidclosed',function(data){
+  console.log("Event: (lid opened) from internal ip of " + data.host);
+});
