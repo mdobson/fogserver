@@ -14,8 +14,10 @@ argoserver
         handle('request', function(env, next) {
           var id = env.route.params.id;
           var p = new Packet({'action':'PING'});
-          fogserver.send(id, p);
-          next(env);
+          fogserver.send(id, p, function(err, packet){
+            env.response.body = {"ping":1};
+            next(env);
+          });
         });
     });
   });
