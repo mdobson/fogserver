@@ -8,8 +8,8 @@ client.open(function() {
 });
 
 client.on('ACK', function(data) {
-  var clientId = data.clientId;
-  console.log('subscription acknowledged clientId:'+clientId);
+//  var clientId = data.clientId;
+//  console.log('subscription acknowledged clientId:'+clientId);
   var p = new Packet({'action':'PONG'});
   client.send(p);
 });
