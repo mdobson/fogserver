@@ -25,7 +25,18 @@ argoserver
           env.response.body = fogserver.getClients();
           next(env);
         });
-      });
+      })
+      .get('/state/{id}', function(handle) {
+        handle('request', function(env, next) {
+          var id = env.route.params.id;
+          var p = new Packet({'action':'state'});
+          fogserver.send(id, p, function(err, packet){
+            env.response.body = packet.message.data;
+            next(env);
+          });
+        });
+      })
+
    });
 
 var app = argoserver.build();
