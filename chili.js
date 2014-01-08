@@ -1,13 +1,13 @@
 var HueApi = require("node-hue-api").HueApi;
     Fog = require('thefog'),
     Client = require('intelli-chilli-client'),
-    udpserver = require('./chilli-server'),
-    hue = require('./hue'),
+    //udpserver = require('./chilli-server'),
+    //hue = require('./hue'),
     Packet = Fog.Packet;
 
 //var client = new Fog.Client({'endpoint':'ws://thefog.herokuapp.com/'});
 var client = new Fog.Client({'endpoint':'ws://localhost:3000/'});
-var chili = new Client({address:'192.168.1.9'});
+//var chili = new Client({address:'192.168.1.9'});
 
 client.on('error', function(data) {
   console.log('error');
@@ -27,9 +27,9 @@ client.on('ACK', function(data) {
 
 client.on('PING', function(data) {
   console.log('Just pinged by server.');
-  chili.ping(function(err) {
+  /*chili.ping(function(err) {
     console.log(arguments);    
-  });
+  });*/
 });
 
 client.on('state', function(p) {
@@ -39,7 +39,7 @@ client.on('state', function(p) {
     cookTimeLeft : 0,
     cookTimeRange : [0,(24*60)],
     cookTemp : 27,
-    cookTempRange : [20,90]
+    cookTempRange : [20,90],
     currentTemp : 26,
     lidState : 'closed',
     cooking : false,
@@ -82,7 +82,7 @@ client.on('error', function(p) {
   client.respondTo(p, p2);
 });
 
-udpserver.bind(3000);
+/*udpserver.bind(3000);
 
 udpserver.on('error',function(err){
   console.error(err);
@@ -112,5 +112,5 @@ udpserver.on('lidopened',function(msg,rinfo){
 udpserver.on('lidclosed',function(msg,rinfo){
   client.send(new Packet({'action':'lidclosed',data : { host : rinfo.address }}));
   console.log("Event: (lid opened) from " + rinfo.address + ":" + rinfo.port);
-});
+});*/
 
