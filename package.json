@@ -16,6 +16,8 @@
   "dependencies": {
     "thefog": "0.0.6",
     "argo": "~0.4.7",
-    "argo-url-router": "0.0.4"
+    "argo-url-router": "0.0.4",
+    "node-hue-api": "~0.2.2",
+    "intelli-chilli-client": "0.0.1"
   }
 }
