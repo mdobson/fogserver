@@ -5,8 +5,8 @@ var HueApi = require("node-hue-api").HueApi;
     //hue = require('./hue'),
     Packet = Fog.Packet;
 
-//var client = new Fog.Client({'endpoint':'ws://thefog.herokuapp.com/'});
-var client = new Fog.Client({'endpoint':'ws://localhost:3000/'});
+var client = new Fog.Client({'endpoint':'ws://thefog.herokuapp.com/'});
+//var client = new Fog.Client({'endpoint':'ws://localhost:3000/'});
 //var chili = new Client({address:'192.168.1.9'});
 
 client.on('error', function(data) {

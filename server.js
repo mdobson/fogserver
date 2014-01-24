@@ -61,7 +61,7 @@ argoserver
       .post('/{id}/temp', function(handle) {
         handle('request', function(env, next) { 
           var id = env.route.params.id;
-          var p = new Packet({'action':'temp', 'data': { 'temp': 30 }});
+          var p = new Packet({'action':'temp', 'data': { 'temp': 'warm' }});
           fogserver.send(id, p, function(err, packet) {
             if(err) {
               env.response.body = {'error':'error with packet'};
