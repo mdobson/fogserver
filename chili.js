@@ -9,6 +9,12 @@ var client = new Fog.Client({'endpoint':'ws://thefog.herokuapp.com/'});
 //var client = new Fog.Client({'endpoint':'ws://localhost:3000/'});
 //var chili = new Client({address:'192.168.1.9'});
 
+//Send heartbeat
+setInterval(function(){
+  var p = new Packet({'action':'HEARTBEAT'});
+  client.send(p);
+}, 3000);
+
 client.on('error', function(data) {
   console.log('error');
   console.log(data);
