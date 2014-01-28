@@ -14,7 +14,8 @@ argoserver
         handle('request', function(env, next) {
           var id = env.route.params.id;
           var p = new Packet({'action':'PING'});
-          fogserver.send(id, p, function(err, packet){
+          p.setClientId(id);
+         fogserver.send(p, function(err, packet){
             env.response.body = {"ping":1};
             next(env);
           });
@@ -30,7 +31,8 @@ argoserver
         handle('request', function(env, next) {
           var id = env.route.params.id;
           var p = new Packet({'action':'state'});
-          fogserver.send(id, p, function(err, packet) {
+          p.setClientId(id);
+          fogserver.send(p, function(err, packet) {
             if(err) {
               env.response.body = {'error':'error with packet'};
               env.response.statusCode = 500;
@@ -46,7 +48,8 @@ argoserver
         handle('request', function(env, next) {
           var id = env.route.params.id;
           var p = new Packet({'action':'time', 'data':{'time': new Date().toString() }});
-          fogserver.send(id, p, function(err, packet) {
+          p.setClientId(id);
+           fogserver.send(p, function(err, packet) {
             if(err) {
               env.response.body = {'error': 'error with packet'};
               env.response.statusCode = 500;
@@ -62,7 +65,8 @@ argoserver
         handle('request', function(env, next) { 
           var id = env.route.params.id;
           var p = new Packet({'action':'temp', 'data': { 'temp': 'warm' }});
-          fogserver.send(id, p, function(err, packet) {
+          p.setClientId(id);
+          fogserver.send(p, function(err, packet) {
             if(err) {
               env.response.body = {'error':'error with packet'};
               env.response.statusCode = 500;
@@ -78,7 +82,8 @@ argoserver
         handle('request', function(env, next) {
           var id = env.route.params.id; 
           var p = new Packet({'action':'start'});
-          fogserver.send(id, p, function(err, packet) {
+          p.setClientId(id);
+          fogserver.send(p, function(err, packet) {
             if(err) {
               env.response.body = {'error':'error with packet'};
               env.response.statusCode = 500;
@@ -93,7 +98,8 @@ argoserver
         handle('request', function(env, next) {
           var id = env.route.params.id;
           var p = new Packet({'action':'stop'});
-          fogserver.send(id, p, function(err, packet) {
+          p.setClientId(id);
+          fogserver.send(p, function(err, packet) {
             if(err) {
               env.response.body = {'error':'error with packet'};
               env.response.statusCode = 500;
@@ -108,7 +114,8 @@ argoserver
         handle('request', function(env, next) {
           var id = env.route.params.id;
           var p = new Packet({'action':'reset'});
-          fogserver.send(id, p, function(err, packet) {
+          p.setClientId(id);
+          fogserver.send(p, function(err, packet) {
             if(err) {
               env.response.body = {'error':'error with packet'};
               env.response.statusCode = 500;
