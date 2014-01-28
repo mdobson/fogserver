@@ -1,7 +1,8 @@
 var Fog = require('thefog'),
-    Client = require('intelli-chilli-client'),
-    udpserver = require('./chilli-server'),
-    hue = require('./hue'),
+//    Client = require('intelli-chilli-client'),
+//    udpserver = require('./chilli-server'),
+//    hue = require('./hue'),
+    address = '28554D220500009C',
     Packet = Fog.Packet;
 
 var client = new Fog.Client({'endpoint':'ws://thefog.herokuapp.com/'});
@@ -10,6 +11,7 @@ var client = new Fog.Client({'endpoint':'ws://thefog.herokuapp.com/'});
 
 setInterval(function() {
   var p = new Packet({'action':'HEARTBEAT'});
+  p.setClientId(address);
   client.send(p);
 }, 3000);
 
@@ -23,17 +25,18 @@ client.open(function() {
 });
 
 client.on('ACK', function(data) {
-  var clientId = data.clientId;
+  //var clientId = data.clientId;
   console.log('subscription acknowledged');
-  var p = new Packet({'action':'PONG', 'data':{'clientId':clientId}});
+  var p = new Packet({'action':'REGISTER'});
+  p.setClientId(address);
   client.send(p);
 });
 
 client.on('PING', function(data) {
   console.log('Just pinged by server.');
-  chili.ping(function(err) {
-    console.log(arguments);    
-  });
+//  chili.ping(function(err) {
+//    console.log(arguments);    
+//  });
 });
 
 client.on('state', function(p) {
@@ -48,35 +51,42 @@ client.on('state', function(p) {
     lidState: 'closed',
     cooking: false,
     heaterOn: false,
-    address: '28554D220500009C',
+    address: '28554D220500009C'
   };
 
   var p2 = new Packet({'action':'state',data : state});
+  p2.setClientId(address);
   client.respondTo(p, p2);
 });
 
 client.on('time', function(p) {
   var p2 = new Packet({'action':'time',data : { time : p.message.data.time} });
+  p2.setClientId(address);
   client.respondTo(p, p2);
 });
 
 client.on('temp', function(p) {
   var p2 = new Packet({'action':'temp',data : { temp : p.message.data.temp} });
+  p2.setClientId(address);
   client.respondTo(p, p2);
 });
 
 client.on('start', function(p) {
   var p2 = new Packet({'action':'start',data : {} });
+  p2.setClientId(address);
   client.respondTo(p, p2);
 });
 
 client.on('stop', function(p) {
   var p2 = new Packet({'action':'stop',data : {} });
+  p2.setClientId(address);
   client.respondTo(p, p2);
 });
 
 client.on('reset', function(p) {
   var p2 = new Packet({'action':'reset',data : {} });
+  p2.setClientId(address);
+
   client.respondTo(p, p2);
 });
 
@@ -84,6 +94,7 @@ client.on('error', function(p) {
   var p2 = new Packet({'action':'state',data : {
     error : "Timeout reached when trying to communicate with end device."
   }});
+  p2.setClientId(address);
   client.respondTo(p, p2);
 });
 

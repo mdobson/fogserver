@@ -133,6 +133,10 @@ fogserver.on('PONG', function(data) {
   fogserver.send(clientId, p);
 });
 
+fogserver.on('REGISTER', function(pack, ws) {
+  fogserver.subscribe(ws, pack.getClientId());
+});
+
 fogserver.on('error', function(data) {
   console.log('Packet err');
   console.log(data);
