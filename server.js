@@ -148,3 +148,7 @@ fogserver.on('error', function(data) {
   console.log('Packet err');
   console.log(data);
 });
+
+fogserver.on('HEARTBEAT', function() {
+  console.log('https://www.youtube.com/watch?v=I1sNImbI2Zw');
+});
