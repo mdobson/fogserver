@@ -47,34 +47,52 @@ argoserver
       .post('/{id}/time', function(handle) {
         handle('request', function(env, next) {
           var id = env.route.params.id;
-          var p = new Packet({'action':'time', 'data':{'time': new Date().toString() }});
-          p.setClientId(id);
-           fogserver.send(p, function(err, packet) {
+          //Number between 0 and 24 * 60
+          env.request.getBody(function(err, body) {
             if(err) {
-              env.response.body = {'error': 'error with packet'};
               env.response.statusCode = 500;
+              env.response.body = {'error':'error parsing body'};
+              next(env);
             } else {
-              env.response.body = JSON.stringify(packet.getData());
-              env.response.statusCode = 200;
+              var b = JSON.parse(body.toString());
+              var p = new Packet({'action':'time', 'data':{'time': b.time }});
+              p.setClientId(id);
+              fogserver.send(p, function(err, packet) {
+                if(err) {
+                  env.response.body = {'error': 'error with packet'};
+                  env.response.statusCode = 500;
+                } else {
+                  env.response.body = JSON.stringify(packet.getData());
+                  env.response.statusCode = 200;
+                }
+                next(env);
+              });
             }
-            next(env);
-         });
-        });
+          });
       })
       .post('/{id}/temp', function(handle) {
         handle('request', function(env, next) { 
-          var id = env.route.params.id;
-          var p = new Packet({'action':'temp', 'data': { 'temp': 'warm' }});
-          p.setClientId(id);
-          fogserver.send(p, function(err, packet) {
+          env.request.getBody(function(err, body) {
             if(err) {
-              env.response.body = {'error':'error with packet'};
               env.response.statusCode = 500;
+              env.response.body = {'error':'error parsing body'};
+              next(env);
             } else {
-              env.response.body = JSON.stringify(packet.getData());
-              env.response.statusCode = 200;
+              var b = JSON.parse(body.toString());
+              var id = env.route.params.id;
+              var p = new Packet({'action':'temp', 'data': { 'temp': b.temp }});
+              p.setClientId(id);
+              fogserver.send(p, function(err, packet) {
+                if(err) {
+                  env.response.body = {'error':'error with packet'};
+                  env.response.statusCode = 500;
+                } else {
+                  env.response.body = JSON.stringify(packet.getData());
+                  env.response.statusCode = 200;
+                }
+                next(env);
+              });
             }
-            next(env);
           });
         });
       })

@@ -14,7 +14,7 @@
   "author": "",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "thefog": "0.0.7",
+    "thefog": "0.0.8",
     "argo": "~0.4.7",
     "argo-url-router": "0.0.4",
     "node-hue-api": "~0.2.2",
