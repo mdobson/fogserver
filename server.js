@@ -69,6 +69,7 @@ argoserver
               });
             }
           });
+        });
       })
       .post('/{id}/temp', function(handle) {
         handle('request', function(env, next) { 
