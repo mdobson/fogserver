@@ -229,6 +229,7 @@ fogserver.on('error', function(data) {
 });
 
 fogserver.on('lidopened', function(data) {
+  console.log('lid opened');
   var options = {
     notifier:"iot",
     path:"devices;ql=/notifications",
