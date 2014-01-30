@@ -237,13 +237,6 @@ fogserver.on('lidopened', function(data) {
     sound:"chime"
   };
   apigee.sendPushToDevice(options, function(error, data){
-    if(error) {
-      env.response.statusCode = 500;
-      env.response.body = { "error": data };
-    } else {
-      env.response.statusCode = 204;
-      next(env);
-    }
   });
 });
 
@@ -255,13 +248,6 @@ fogserver.on('cookend', function(data) {
     sound:"chime"
   };
   apigee.sendPushToDevice(options, function(error, data){
-    if(error) {
-      env.response.statusCode = 500;
-      env.response.body = { "error": data };
-    } else {
-      env.response.statusCode = 204;
-      next(env);
-    }
   });
 });
 
