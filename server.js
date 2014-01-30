@@ -6,15 +6,11 @@ var Fog = require('thefog'),
     Packet = Fog.Packet;
 
 var argoserver = argo();
-var options = {
-        methods: ['DELETE', 'POST', 'PUT', 'PATCH'],
-              origins: ['*'],
-                    maxAge: '432000'
-};
+
 argoserver
   //.use(router)
   .use(titan)
-  .allow(options)
+  .allow('*')
   .map('/devices', function(server) {
     server
       .post('/{id}/ping', function(handle) {
