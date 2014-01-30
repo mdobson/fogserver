@@ -236,7 +236,7 @@ fogserver.on('lidopened', function(data) {
     message:"Someone lifted the lid",
     sound:"chime"
   };
-  client.sendPushToDevice(options, function(error, data){
+  apigee.sendPushToDevice(options, function(error, data){
     if(error) {
       env.response.statusCode = 500;
       env.response.body = { "error": data };
@@ -254,7 +254,7 @@ fogserver.on('cookend', function(data) {
     message:"Chili done!",
     sound:"chime"
   };
-  client.sendPushToDevice(options, function(error, data){
+  apigee.sendPushToDevice(options, function(error, data){
     if(error) {
       env.response.statusCode = 500;
       env.response.body = { "error": data };
