@@ -231,7 +231,7 @@ fogserver.on('error', function(data) {
 fogserver.on('lidopened', function(data) {
   var options = {
     notifier:"iot",
-    path:"device;ql=/notifications",
+    path:"devices;ql=/notifications",
     message:"Someone lifted the lid",
     sound:"chime"
   };
@@ -249,7 +249,7 @@ fogserver.on('lidopened', function(data) {
 fogserver.on('cookend', function(data) {
   var options = {
     notifier:"iot",
-    path:"device;ql=/notifications",
+    path:"devices;ql=/notifications",
     message:"Chili done!",
     sound:"chime"
   };
