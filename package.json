@@ -19,6 +19,7 @@
     "argo-url-router": "0.0.4",
     "node-hue-api": "~0.2.2",
     "intelli-chilli-client": "0.0.1",
-    "titan": "~0.1.1"
+    "titan": "~0.1.1",
+    "usergrid": "~0.10.7"
   }
 }
