@@ -6,23 +6,17 @@ var Fog = require('thefog'),
     Packet = Fog.Packet;
 
 var argoserver = argo();
-
+var options = {
+        methods: ['DELETE', 'POST', 'PUT', 'PATCH'],
+              origins: ['*'],
+                    maxAge: '432000'
+};
 argoserver
-  .use(router)
-  .use(function(handle) {
-    handle('response', function(env, next) {
-      env.response.setHeader('Access-Control-Allow-Origin', '*');
-      next(env);
-    });
-   })
+  //.use(router)
+  .use(titan)
+  .allow(options)
   .map('/devices', function(server) {
     server
-      .use(function(handle) {
-        handle('response', function(env, next) {
-          env.response.setHeader('Access-Control-Allow-Origin', '*');
-          next(env);
-        });
-      })
       .post('/{id}/ping', function(handle) {
         handle('request', function(env, next) {
           var id = env.route.params.id;
