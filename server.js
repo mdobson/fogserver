@@ -2,6 +2,7 @@ var Fog = require('thefog'),
     argo = require('argo'),
     router = require('argo-url-router'),
     http = require('http'),
+    titan = require('titan'),
     Packet = Fog.Packet;
 
 var argoserver = argo();
