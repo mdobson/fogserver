@@ -9,6 +9,7 @@ var argoserver = argo();
 
 argoserver
   .use(router)
+  .use(titan)
   .map('/devices', function(server) {
     server
       .post('/{id}/ping', function(handle) {
